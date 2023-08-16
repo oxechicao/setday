@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p { margin: 0; }
+        body { 
+            background-color: #111; 
+            position: relative; 
+        }
+        main {
+            z-index: 1000;
+            color: #d6248c;
+            font-size: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            flex-direction: column;
+        }
+        p {
+            z-index: 1000;
+            text-shadow: 1px 1px 2px #e65fae;
+        }
+        .dates, .datesDay {
+            z-index: 1000;
+            color: #cacaca;
+            font-size: 30px;
+            border: 1px solid #d6248c;
+            padding: 10px 30px;
+            border-radius: 30px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .datesDay {
+            z-index: 1000;
+            background-color: #d6248c;
+            color: #fff;
+        }
+        #mapBox {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/map.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+            
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="dates">
+            <!-- <p >
+                Now: <span id="today"></span>
+            </p> -->
+            <p class="datesDay">
+                SETday: <span id="goalDay"></span>
+            </p>
+        </div>
+        <p>
+            <span id="diffDays"></span> days
+        </p>
+        <p>
+            <span id="diffHour"></span> hours
+        </p>
+        <p>
+            <span id="diffMin"></span> minutes
+        </p>
+        <p>
+            <span id="diffSec"></span> seconds
+        </p>
+    </main>
+
+    <div id="mapBox">
+    </div>
+
+    <script>
+        const goalDay = new Date('October 18, 2023 18:05:00')
+        let today, diffTime, diffDays, diffSec, diffMin, diffHour
+        const calcTimes = () => {
+            today = new Date()
+            diffTime = goalDay - today
+            if (diffTime === 0) return
+            diffSec = Math.floor(diffTime/1000)
+            diffMin = Math.floor(diffTime / (1000 * 60))
+            diffHour = Math.floor(diffTime / (1000 * 60 * 60))
+            diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+
+            // document.getElementById('today').innerHTML = today.toLocaleString()
+            document.getElementById('diffDays').innerHTML = diffDays
+            document.getElementById('diffHour').innerHTML = diffHour
+            document.getElementById('diffMin').innerHTML = diffMin
+            document.getElementById('diffSec').innerHTML = diffSec
+        }
+        calcTimes()
+        setInterval(calcTimes, 1000)
+        
+        document.getElementById('goalDay').innerHTML = goalDay.toLocaleString()
+    </script>
+</body>
+</html>
